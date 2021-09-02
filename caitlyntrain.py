@@ -48,17 +48,20 @@ inputs = keras.Input(shape=input_shape)
 x = base_model(inputs, training=False)
 x = keras.layers.GlobalAveragePooling2D()(x)
 x = keras.layers.Dropout(0.2)(x)
-outputs = keras.layers.Dense(1)(x)
+x = keras.layers.Dense(1)(x)
+outputs = keras.activations.sigmoid(x)
 model = keras.Model(inputs, outputs)
 
 model.compile(optimizer = keras.optimizers.Adam(lr=0.0001),
-              loss=tf.keras.losses.BinaryCrossentropy(from_logits=True),
-              metrics=[keras.metrics.BinaryAccuracy(name='accuracy')])
+              loss=tf.keras.losses.BinaryCrossentropy(from_logits=False),
+              metrics=[keras.metrics.BinaryAccuracy(name='accuracy'),
+                      keras.metrics.Precision(),
+                      keras.metrics.Recall()])
 
 model.summary()
 print(model.optimizer.get_config())
 
-epochs=25
+epochs=5
 
 checkpoint_path = "labs/cp.ckpt"
 checkpoint_dir = os.path.dirname(checkpoint_path)
@@ -97,7 +100,7 @@ plt.legend(loc='upper right')
 plt.title('Training and Validation Loss')
 plt.show()
 
-model.save_weights('./labs/resnet50_' + epochs)
+model.save_weights('./labs/resnet50_' + str(epochs))
 
 # model = Sequential([
 #   layers.experimental.preprocessing.Rescaling(1./255, input_shape=(img_height, img_width, 3)),
