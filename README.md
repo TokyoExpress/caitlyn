@@ -51,7 +51,7 @@ In fact, that only reason that we know that those are games is because our intri
 
 Anyways, after producing a test set with completely different games, it was obvious that the ResNet model was good at spotting games that it had already seen, but it had no idea what a game really was. Tinkering with the classification threshold yielded two less-than-ideal results: either maximize the recall and remove all non-games, but at the cost of misclassifying some new games as non-games, or maximize the precision and try not to remove any actual game screenshots, which resulted in very little images being certain non-game predictions anyways. The last thing I wanted was for Caitlyn to miss out on a lot of training data because this model thought a new game looked like a non-game and didn't let a majority of the images from that game through. At the same time, the model was so tunnel-visioned that there were a small percentage of games (browser games and non-colorful, simple games, mostly) that it would classify as non-game with > 0.95 certainty, so there was no threshold where I could guarantee no false negatives.
 
-![tests](https://imgur.com/y5BagCv)
+![tests](https://imgur.com/y5BagCv.png)
 
 <i>Even after achieving ~89% accuracy on the training and validation, the model was unable to correctly sort a set of games and images it hadn't seen before.</i>
 
