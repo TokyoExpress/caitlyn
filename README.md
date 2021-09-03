@@ -33,8 +33,21 @@ I started off with the simplest Keras CNN possible, with 2 convolution layers wi
 Next, I decided to try transfer learning with ResNet50 (I would've tried RN18 first but RN50 is the smallest one that comes pretrained in Keras). This model was actually able to achieve pretty good results, maxing out and converging to about 90% accuracy. The validation accuracy never seemed to decrease, which seemed very good. Almost too good, and that's when I realized that this model was never going to work. It's not that it was overfitting the training data - again, the validation accuracy was always just as high as the training accuracy. The main issue was that both the training data and validation data only contained images of those top 100 games, which seemed like quite a lot at the beginning, but quickly revealed that it was not nearly enough to encompass the full distribution of games. While games like Call of Duty and Apex Legends will look quite similar in images, games like osu!, Gartic Phone, and PICO PARK are whole different types of games. 
 
 <img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/warzone.jpg" width=500></img>
+<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/apex.jpg" width=500></img>
+
+Warzone and Apex are pretty standard games, no issue here.
+
+<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/osu.png" width=500></img>
+<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/picopark.jpg" width=500></img>
+
+osu! and Pico Park, just two of the many games that will absolutely destroy the test accuracy of this model.
 
 In fact, that only reason that we know that those are games is because our intrinsic understanding of what makes up a game goes far beyond simple visuals. It also didn't help that some games were played in a browser, but we couldn't consider something like YouTube or Twitch a game. What if the streamer happened to be watching a game on Twitch? At first glance, it seems like classifying games would be a relatively simple task, but it soon beomes apparent that a model that can differentiate a game, a video of a game, and a colorful website that is in fact not a game must be <i>extremely</i> intelligent by computer vision standards.
+
+<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/gartic.png" width=500></img>
+<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/twitch.png" width=500></img>
+
+What should even happen for these?
 
 Anyways, after producing a test set with completely different games, it was obvious that the ResNet model was good at spotting games that it had already seen, but it had no idea what a game really was. Tinkering with the classification threshold yielded two less-than-ideal results: either maximize the recall and remove all non-games, but at the cost of misclassifying some new games as non-games, or maximize the precision and try not to remove any actual game screenshots, which resulted in very little images being certain non-game predictions anyways. The last thing I wanted was for Caitlyn to miss out on a lot of training data because this model thought a new game looked like a non-game and didn't let a majority of the images from that game through. At the same time, the model was so tunnel-visioned that there were a small percentage of games (browser games and non-colorful, simple games, mostly) that it would classify as non-game with > 0.95 certainty, so there was no threshold where I could guarantee no false negatives.
 
