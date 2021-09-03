@@ -44,7 +44,7 @@ osu! and Pico Park, just two of the many games that will absolutely destroy the 
 
 In fact, that only reason that we know that those are games is because our intrinsic understanding of what makes up a game goes far beyond simple visuals. It also didn't help that some games were played in a browser, but we couldn't consider something like YouTube or Twitch a game. What if the streamer happened to be watching a game on Twitch? At first glance, it seems like classifying games would be a relatively simple task, but it soon beomes apparent that a model that can differentiate a game, a video of a game, and a colorful website that is in fact not a game must be <i>extremely</i> intelligent by computer vision standards.
 
-<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/gartic.png" width=500></img>
+<img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/gartic.jpg" width=500></img>
 <img src="https://github.com/TokyoExpress/caitlyn/blob/main/pics/twitch.png" width=500></img>
 
 What should even happen for these?
