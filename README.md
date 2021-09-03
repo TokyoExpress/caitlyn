@@ -1,4 +1,6 @@
-# caitlyn
+# caitlyn (WIP)
+
+Computer vision applications for video game screenshots.
 
 ## Developer Log
 
